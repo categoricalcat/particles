@@ -1,5 +1,5 @@
 import {
-  Sprite,
+  Particle as PixiParticle,
   ParticleContainer as PC,
   Texture,
 } from 'pixi.js'
@@ -60,15 +60,23 @@ export const update = (p: Particle) => {
   p.position.set(p.x + p.vx, p.y + p.vy)
 }
 
-export class Particle extends Sprite {
+export class Particle extends PixiParticle {
   vx = -1
   vy = -1
 
-  override name = `${this.x}${this.y}`
-  override interactive = false
+  name: string
 
   get coords() {
     return [this.x, this.y] as [number, number]
+  }
+
+  get position() {
+    return {
+      set: (x: number, y: number) => {
+        this.x = x
+        this.y = y
+      },
+    }
   }
 
   constructor(x: number, y: number) {
@@ -76,9 +84,8 @@ export class Particle extends Sprite {
 
     this.x = x
     this.y = y
+    this.name = `${x}${y}`
   }
 }
 
-export class ParticleContainer extends PC {
-  override children: Particle[] = []
-}
+export class ParticleContainer extends PC<Particle> {}

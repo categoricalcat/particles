@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 // @ts-expect-error - yes
-import pkg from './package.json'
+import pkg from './package.json' with { type: 'json' }
 
 const dependencies = [...Object.keys(pkg.dependencies)]
 
@@ -11,7 +11,9 @@ export default defineConfig({
     target: 'esnext',
     assetsDir: './',
     outDir: 'docs',
-    polyfillModulePreload: false,
+    modulePreload: {
+      polyfill: false,
+    },
     assetsInlineLimit: 0,
     sourcemap: true,
     chunkSizeWarningLimit: 550,

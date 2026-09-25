@@ -6,19 +6,11 @@ const [width, height] = aspect
 export const PARTICLE_NUMBER = 250_000
 console.info('Rendering', PARTICLE_NUMBER, 'particles')
 
-export const stage = new ParticleContainer(
-  PARTICLE_NUMBER,
-  {
-    vertices: false,
-    alpha: false,
+export const stage = new ParticleContainer({
+  dynamicProperties: {
     position: true,
-    rotation: false,
-    scale: false,
-    uvs: false,
   },
-  PARTICLE_NUMBER,
-  false,
-)
+})
 
 const r = (d: number) => randomInt(1, d)
 
@@ -28,6 +20,6 @@ export const createParticles = () => {
 
     update(p)
 
-    stage.addChild(p)
+    stage.addParticle(p)
   }
 }

@@ -3,4 +3,6 @@ import { createParticles } from './canvas/particles'
 
 createParticles()
 
-window.onload = start.bind(null, 0)
+window.onload = () => {
+  void start()
+}
